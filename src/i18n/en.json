@@ -1,0 +1,17 @@
+{
+  "common": {
+    "title": "Redemption Administrator"
+  },
+  "nav": {
+    "dashboard": "Dashboard",
+    "language": "Language",
+    "signOut": "Sign out",
+    "signIn": "Sign in",
+    "surveyList": "Survey"
+  },
+  "syserr": {
+    "10001": "System or network error",
+    "10002": "Query administrator error",
+    "10004": "Login name or password error"
+  }
+}

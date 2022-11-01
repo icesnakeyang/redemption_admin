@@ -1,0 +1,10 @@
+{
+  "common": {
+    "title": "Redemption Administrator"
+  },
+  "nav": {
+    "dashboard": "Dashboard",
+    "language": "Language",
+    "signOut": "Sign out"
+  }
+}
