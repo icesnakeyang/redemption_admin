@@ -3,6 +3,7 @@ import { useTranslation } from "react-i18next";
 import { useSelector, useDispatch } from "react-redux";
 import { UserOutlined, GlobalOutlined, MailOutlined } from "@ant-design/icons";
 import { useNavigate } from "react-router-dom";
+import {clearAdmin, saveLoginName} from "../../store/adminSlice";
 
 const MainHeader = () => {
   const navigate = useNavigate();
@@ -13,6 +14,9 @@ const MainHeader = () => {
 
   const onMenu = (e: any) => {
     if (e.key === "menuSignOut") {
+      localStorage.removeItem("redemption_admin_token");
+      dispatch(clearAdmin());
+      navigate("/", {replace: true});
     }
     if (e.key === "menuSignIn") {
     }

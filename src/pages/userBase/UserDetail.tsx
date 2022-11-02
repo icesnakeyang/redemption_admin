@@ -1,10 +1,10 @@
 import {useEffect, useState} from "react";
 import {useLocation} from "react-router-dom";
-import {apiGetUserDetail} from "../api/Api";
+import {apiGetUserDetail} from "../../api/Api";
 import {Card, Form, message} from "antd";
 import {useTranslation} from "react-i18next";
 import moment from "moment";
-import UserDetailSurveyRow from "./UserDetailSurveyRow";
+import UserDetailSurveyRow from "../UserDetailSurveyRow";
 
 const UserDetail = (data: any) => {
     const {userId}: any = useLocation().state;

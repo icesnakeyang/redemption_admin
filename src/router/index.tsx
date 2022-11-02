@@ -1,11 +1,13 @@
-import { useSelector } from "react-redux";
 import { Navigate, Route, Routes } from "react-router-dom";
 import Dashboard from "../pages/Dashboard";
 import MainLayout from "../pages/layout/MainLayout";
 import LoginIn from "../pages/LoginIn";
-import UserDetail from "../pages/UserDetail";
+import UserDetail from "../pages/userBase/UserDetail";
 import SurveyList from "../pages/survey/SurveyList";
 import SurveyEdit from "../pages/survey/SurveyEdit";
+import AdminUserList from "../pages/adminUser/AdminUserList";
+import AdminNew from "../pages/adminUser/AdminNew";
+import UserBaseList from "../pages/userBase/UserBaseList";
 
 const ProtectRouter = ({ children }: any) => {
   let token = localStorage.getItem("redemption_admin_token") || null;
@@ -27,6 +29,14 @@ const Routers = () => {
           }
         />
         <Route
+          path="/UserBaseList"
+          element={
+            <ProtectRouter>
+              <UserBaseList />
+            </ProtectRouter>
+          }
+        />
+          <Route
           path="/userDetail"
           element={
             <ProtectRouter>
@@ -47,6 +57,22 @@ const Routers = () => {
           element={
             <ProtectRouter>
               <SurveyEdit />
+            </ProtectRouter>
+          }
+        />
+        {/*  <Route*/}
+        {/*  path="/AdminUserList"*/}
+        {/*  element={*/}
+        {/*    <ProtectRouter>*/}
+        {/*      <AdminUserList />*/}
+        {/*    </ProtectRouter>*/}
+        {/*  }*/}
+        {/*/>*/}
+        <Route
+          path="/AdminNew"
+          element={
+            <ProtectRouter>
+              <AdminNew />
             </ProtectRouter>
           }
         />

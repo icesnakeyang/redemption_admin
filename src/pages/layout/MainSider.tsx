@@ -2,10 +2,10 @@ import {Menu} from "antd";
 import {
     AppstoreOutlined,
     CheckSquareOutlined,
-    DashboardOutlined,
+    DashboardOutlined, IdcardOutlined,
     ReadOutlined,
-    SettingOutlined,
-    TeamOutlined,
+    SettingOutlined, SolutionOutlined,
+    TeamOutlined, UsergroupAddOutlined,
     UserOutlined,
 } from "@ant-design/icons";
 import {useTranslation} from "react-i18next";
@@ -49,6 +49,12 @@ const MainSider = () => {
         if (e.key === "menuSurveyList") {
             navigate("/SurveyList");
         }
+        if (e.key === "menuAdminUserList") {
+            navigate("/AdminUserList");
+        }
+        if (e.key === "menuUserBase") {
+            navigate("/UserBaseList");
+        }
     };
     return (
         <Menu
@@ -61,11 +67,21 @@ const MainSider = () => {
                     icon: <DashboardOutlined/>,
                     label: t("nav.dashboard"),
                 },
-                {
-                    key: "menuSurveyList",
-                    icon: <UserOutlined/>,
-                    label: t("nav.surveyList"),
-                },
+                // {
+                //     key: 'menuUserBase',
+                //     icon: <TeamOutlined />,
+                //     label: t('nav.userBase')
+                // },
+                // {
+                //     key: "menuSurveyList",
+                //     icon: <SolutionOutlined />,
+                //     label: t("nav.surveyList"),
+                // },
+                // {
+                //     key: "menuAdminUserList",
+                //     icon: <IdcardOutlined />,
+                //     label: t("nav.adminUserList"),
+                // },
             ]}
             onClick={(e) => {
                 onMenu(e);

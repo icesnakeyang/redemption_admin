@@ -50,13 +50,11 @@ const MainLayout = () => {
                         }}
                     >
                         {collapsed ? (
-
-                            <WalletOutlined
-                                style={{fontSize: "28px", color: "#eee"}}
-                                onClick={() => {
-                                    navigate("/");
-                                }}
-                            />
+                            <a onClick={() => {
+                                navigate("/");
+                            }}>
+                                <img src='/images.png' width="48px"/>
+                            </a>
                         ) : (
                             <div
                                 style={{

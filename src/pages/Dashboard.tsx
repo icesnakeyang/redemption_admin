@@ -3,50 +3,33 @@ import {
     Card,
     Col,
     message,
-    Pagination,
-    PaginationProps,
     Row,
     Statistic,
-    Table,
 } from "antd";
-import Item from "antd/lib/list/Item";
-import moment from "moment";
 import {useEffect, useState} from "react";
 import {useTranslation} from "react-i18next";
 import {useNavigate} from "react-router-dom";
-import {apiListUser, apiLoadUserStatistic, apiStatisticSurvey1} from "../api/Api";
-import DashboardUserRow from "./DashboardUserRow";
+import {apiListUser, apiLoadExportData1, apiLoadUserStatistic, apiStatisticSurvey1} from "../api/Api";
 import SurveyStatisticBox from "./SurveyStatisticBox";
-
-const showTotal: PaginationProps["showTotal"] = (total) =>
-    `Total ${total} items`;
+// import ExportJsonExcel from 'js-export-excel'
+import exportFromJSON from 'export-from-json'
 
 const Dashboard = () => {
     const {t} = useTranslation();
-    const navigate = useNavigate();
-    const [pageIndex, setPageIndex] = useState(1);
-    const [pageSize, setPageSize] = useState(10);
-    const [userList, setUserList] = useState([]);
-    const [totalUser, setTotalUser] = useState(0);
     const [surveyList, setSurveyList] = useState([])
     const [totalUserBase, setTotalUserBase] = useState(0)
 
-
     useEffect(() => {
         loadAllData();
+
+        return (() => {
+
+        })
+
     }, []);
 
     const loadAllData = () => {
-        let params = {
-            pageIndex,
-            pageSize,
-        };
-        apiListUser(params).then((res: any) => {
-            if (res.code === 0) {
-                setUserList(res.data.userList);
-                setTotalUser(res.data.totalUser);
-            }
-        });
+
 
         apiLoadUserStatistic().then((res: any) => {
             if (res.code === 0) {
@@ -65,72 +48,50 @@ const Dashboard = () => {
         })
     };
 
-    const userColumns = [
-        {
-            title: "User name",
-            dataIndex: "name",
-            key: "name",
-        },
-        {
-            title: "Phone",
-            dataIndex: "phone",
-            key: "phone",
-        },
-        {
-            title: "createTime",
-            dataIndex: "createTime",
-            key: "createTime",
-            render: (text: any) => <span>{moment(text).format("LLL")}</span>,
-        },
-        {
-            title: "email",
-            dataIndex: "email",
-            key: "email",
-        },
-        {
-            title: "icnumber",
-            dataIndex: "icnumber",
-            key: "icnumber",
-        },
-        {
-            title: "postcode",
-            dataIndex: "postcode",
-            key: "postcode",
-        },
-        {
-            title: "Action",
-            dataIndex: "userId",
-            key: "userId",
-            render: (userId: any) => (
-                <Button
-                    type="primary"
-                    size="small"
-                    onClick={() => {
-                        console.log(userId);
-                        navigate("userDetail", {state: {userId}});
-                    }}
-                >
-                    Detail
-                </Button>
-            ),
-        },
-    ];
+    /**
+     * export excel file
+     */
+    const onDownload = () => {
+        apiLoadExportData1({}).then((res: any) => {
+            if (res.code === 0) {
+                const data = res.data.dataList
+                const fileName = 'download'
+                const exportType = exportFromJSON.types.xls
+                exportFromJSON({data, fileName, exportType})
+            }
+        });
+    }
 
     return (
         <div>
             <Row gutter={10}>
-                <Col span={6}>
+                <Col span={8}>
                     <Card>
                         <Statistic title="Surveyed Users" value={totalUserBase} valueStyle={{color: '#3f8600'}}/>
                     </Card>
                 </Col>
-                <Col span={6}>
-                    <Card>
-                        <Statistic title="Account Balance (CNY)" value={totalUserBase} precision={2}/>
-                    </Card>
-
+                <Col span={8} style={{display: 'flex', alignItems: 'center'}}>
+                    <Button type='primary' onClick={() => {
+                        onDownload()
+                    }}>Download Users</Button>
                 </Col>
             </Row>
+
+            {/*<Row>*/}
+            {/*    <Col xs={2} sm={2} md={2} lg={2} xl={2} xxl={2}>*/}
+            {/*        <div id="container"></div>*/}
+            {/*    </Col>*/}
+            {/*    <Col xs={2} sm={2} md={2} lg={2} xl={2} xxl={2}>*/}
+            {/*        <div id="c2"></div>*/}
+            {/*    </Col>*/}
+            {/*    <Col xs={2} sm={2} md={2} lg={2} xl={2} xxl={2}>*/}
+            {/*        <div id="c3"></div>*/}
+            {/*    </Col>*/}
+            {/*    <Col xs={2} sm={2} md={2} lg={2} xl={2} xxl={2}>*/}
+            {/*        <div id="c4"></div>*/}
+            {/*    </Col>*/}
+            {/*</Row>*/}
+
 
             <Card title="Survey Statistic" style={{marginTop: 20}}>
                 {
@@ -141,24 +102,7 @@ const Dashboard = () => {
                 }
             </Card>
 
-            {userList.length > 0 ? (
-                <Card title="Surveyed Users" style={{marginTop: 20}}>
-                    <Table dataSource={userList} columns={userColumns}/>
-                    {/* <Row>
-            <Col>User name</Col>
-            <Col>User name</Col>
-          </Row>
-          {userList.map((item, index) => (
-            <DashboardUserRow item={item} key={index} />
-          ))}
-          <Pagination
-            size="small"
-            total={totalUser}
-            showTotal={showTotal}
-            showQuickJumper
-          /> */}
-                </Card>
-            ) : null}
+
         </div>
     );
 };
