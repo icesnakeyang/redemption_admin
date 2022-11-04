@@ -3,13 +3,11 @@ import {Outlet} from "react-router-dom";
 import FooterBar from "./FooterBar";
 import {useTranslation} from "react-i18next";
 import {useState} from "react";
-import {WalletOutlined} from "@ant-design/icons";
 import {useNavigate} from "react-router-dom";
-import Sider from "antd/lib/layout/Sider";
 import MainSider from "./MainSider";
 import MainHeader from "./MainHeader";
 
-const {Header, Content, Footer} = Layout;
+const {Header, Content, Footer, Sider} = Layout;
 
 const MainLayout = () => {
     const [collapsed, setCollapsed] = useState(false);

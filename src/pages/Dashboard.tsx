@@ -18,6 +18,7 @@ const Dashboard = () => {
     const {t} = useTranslation();
     const [surveyList, setSurveyList] = useState([])
     const [totalUserBase, setTotalUserBase] = useState(0)
+    const navigate = useNavigate()
 
     useEffect(() => {
         loadAllData();
@@ -34,14 +35,26 @@ const Dashboard = () => {
         apiLoadUserStatistic().then((res: any) => {
             if (res.code === 0) {
                 setTotalUserBase(res.data.totalUserBase)
+            } else {
+                if (res.code === 10002) {
+                    navigate('/login')
+                } else {
+                    message.error(t('syserr.' + res.code))
+                }
             }
+        }).catch(() => {
+            message.error(t('syserr.10001'))
         })
 
         apiStatisticSurvey1().then((res: any) => {
             if (res.code === 0) {
                 setSurveyList(res.data.statisticSurvey1)
             } else {
-                message.error(t('syserr.' + res.code))
+                if (res.code === 10002) {
+                    navigate('/login')
+                } else {
+                    message.error(t('syserr.' + res.code))
+                }
             }
         }).catch(() => {
             message.error(t('syserr.10001'))
