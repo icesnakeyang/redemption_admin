@@ -19,41 +19,8 @@ const MainSider = () => {
         if (e.key === "menuDashboard") {
             navigate("/");
         }
-        if (e.key === "menuNote") {
-            navigate("/main/noteList");
-        }
-        if (e.key === "menuContact") {
-            navigate("/main/contactList");
-        }
-        if (e.key === "menuTaskTodoList") {
-            navigate("/main/TodoPage");
-        }
-        if (e.key === "menuCreativeNote") {
-            navigate("/main/CreativeNoteList");
-        }
-        if (e.key === "menuQuadrantTaskList") {
-            navigate("/main/QuadrantTaskList");
-        }
-        if (e.key === "menuThemeSetting") {
-            navigate("/main/ThemeSetting");
-        }
-        if (e.key === "menuMyProfilePage") {
-            navigate("/main/MyProfilePage");
-        }
-        if (e.key === "menuMyReceiveNote") {
-            navigate("/main/MyReceiveNote");
-        }
-        if (e.key === "menuMySendNote") {
-            navigate("/main/MySendNote");
-        }
-        if (e.key === "menuSurveyList") {
-            navigate("/SurveyList");
-        }
-        if (e.key === "menuAdminUserList") {
-            navigate("/AdminUserList");
-        }
-        if (e.key === "menuUserBase") {
-            navigate("/UserBaseList");
+        if (e.key === "menuSettings") {
+            navigate("/SettingPage");
         }
     };
     return (
@@ -66,6 +33,11 @@ const MainSider = () => {
                     key: "menuDashboard",
                     icon: <DashboardOutlined/>,
                     label: t("nav.dashboard"),
+                },
+                {
+                    key: "menuSettings",
+                    icon: <SettingOutlined />,
+                    label: t("nav.settings"),
                 },
                 // {
                 //     key: 'menuUserBase',

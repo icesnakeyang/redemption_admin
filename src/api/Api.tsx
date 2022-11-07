@@ -1,7 +1,7 @@
 import {Get, Post} from "./ApiBase";
 
-// const host = "http://localhost:8004/redemption_api";
-const host = "http://181.215.246.126:8004/redemption_api";
+const host = "http://localhost:8004/redemption_api";
+// const host = "http://181.215.246.126:8004/redemption_api";
 
 export const apiAdminLogin = (params: any) => {
     return Post(`${host}/admin/admin/adminLogin`, params);
@@ -41,4 +41,20 @@ export const apiCreateAdmin = (params: any) => {
 
 export const apiLoadExportData1 = (params: any) => {
     return Post(`${host}/admin/maintenance/loadExportData1`, params);
+};
+
+export const apiListSetting = (params: any) => {
+    return Post(`${host}/admin/maintenance/listSetting`, params);
+};
+
+export const apiCreateSetting = (params: any) => {
+    return Post(`${host}/admin/maintenance/createSetting`, params);
+};
+
+export const apiGetSetting = (params: any) => {
+    return Post(`${host}/admin/maintenance/getSetting`, params);
+};
+
+export const apiUpdateSetting = (params: any) => {
+    return Post(`${host}/admin/maintenance/updateSetting`, params);
 };
