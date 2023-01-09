@@ -2,7 +2,7 @@ import {Menu} from "antd";
 import {
     AppstoreOutlined,
     CheckSquareOutlined,
-    DashboardOutlined, IdcardOutlined,
+    DashboardOutlined, IdcardOutlined, MobileOutlined,
     ReadOutlined,
     SettingOutlined, SolutionOutlined,
     TeamOutlined, UsergroupAddOutlined,
@@ -10,6 +10,7 @@ import {
 } from "@ant-design/icons";
 import {useTranslation} from "react-i18next";
 import {useNavigate} from "react-router-dom";
+import SendPhone from "../sendPhone/SendPhone";
 
 const MainSider = () => {
     const {t} = useTranslation();
@@ -21,6 +22,9 @@ const MainSider = () => {
         }
         if (e.key === "menuSettings") {
             navigate("/SettingPage");
+        }
+        if (e.key === "menuSendPhone") {
+            navigate("/SendPhone");
         }
     };
     return (
@@ -38,6 +42,11 @@ const MainSider = () => {
                     key: "menuSettings",
                     icon: <SettingOutlined />,
                     label: t("nav.settings"),
+                },
+                {
+                    key: "menuSendPhone",
+                    icon: <MobileOutlined />,
+                    label: t("nav.sendPhone"),
                 },
                 // {
                 //     key: 'menuUserBase',

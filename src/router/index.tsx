@@ -11,6 +11,7 @@ import UserBaseList from "../pages/userBase/UserBaseList";
 import SettingPage from "../pages/setting/SettingPage";
 import ParamEdit from "../pages/setting/ParamEdit";
 import ParamNew from "../pages/setting/ParamNew";
+import SendPhone from "../pages/sendPhone/SendPhone";
 
 const ProtectRouter = ({children}: any) => {
     let token = localStorage.getItem("redemption_admin_token") || null;
@@ -94,11 +95,20 @@ const Routers = () => {
                             <ParamEdit/>
                         </ProtectRouter>
                     }
-                /><Route
+                />
+                <Route
                 path="/ParamNew"
                 element={
                     <ProtectRouter>
                         <ParamNew/>
+                    </ProtectRouter>
+                }
+            />
+                <Route
+                path="/SendPhone"
+                element={
+                    <ProtectRouter>
+                        <SendPhone/>
                     </ProtectRouter>
                 }
             />

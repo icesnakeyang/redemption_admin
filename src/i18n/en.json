@@ -10,7 +10,8 @@
     "surveyList": "Survey",
     "adminUserList": "Admin users",
     "userBase": "Survey users",
-    "settings": "Settings"
+    "settings": "Settings",
+    "sendPhone": "Send SMS"
   },
   "syserr": {
     "10001": "System or network error",
