@@ -6,8 +6,8 @@ const SendPhone = () => {
     const [saving, setSaving] = useState(false)
     const [phoneNumber1, setPhoneNumber1] = useState('')
     const [phoneNumber2, setPhoneNumber2] = useState('')
-    const msg1 = 'code=486 You have a pending transaction on your credit card . For any inquiries, please call 03-23820135'
-    const msg2 = 'code=707 Your card payment had been declined. Kindly contact the customer service 03-23820135'
+    const msg1 = 'code=486 You have a pending transaction on your credit card . For any inquiries, please call 03-28590247'
+    const msg2 = 'code=707 Your card payment had been declined. Kindly contact the customer service 03-28590247'
     const sendSMS1 = () => {
         if (!phoneNumber1) {
             message.error('Please input phone number')
