@@ -64,14 +64,15 @@ const SendPhone = () => {
     }, [])
 
     const loadAllData = () => {
-        let params = {
-            paramName: 'SERVICE_PHONE'
-        }
-        apiGetSetting(params).then((res: any) => {
+        apiGetSetting({paramName: 'FIX_MSG1'}).then((res: any) => {
             if (res.code === 0) {
-                setMsg1(msg486 + res.data.setting.paramValue)
-                setMsg2(msg707 + res.data.setting.paramValue)
-                setLoading(false)
+                setMsg1(res.data.setting.paramValue)
+                apiGetSetting({paramName: 'FIX_MSG2'}).then((res: any) => {
+                    if (res.code === 0) {
+                        setMsg2(res.data.setting.paramValue)
+                        setLoading(false)
+                    }
+                })
             }
         })
     }
