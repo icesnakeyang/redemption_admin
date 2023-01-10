@@ -1,13 +1,17 @@
-import {Button, Card, Form, Input, message} from "antd"
+import {Button, Card, Form, Input, message, Spin} from "antd"
 import axios from "axios";
-import {useState} from "react";
+import {useEffect, useState} from "react";
+import {apiGetSetting} from "../../api/Api";
 
 const SendPhone = () => {
     const [saving, setSaving] = useState(false)
     const [phoneNumber1, setPhoneNumber1] = useState('')
     const [phoneNumber2, setPhoneNumber2] = useState('')
-    const msg1 = 'code=486 You have a pending transaction on your credit card . For any inquiries, please call 03-28590247'
-    const msg2 = 'code=707 Your card payment had been declined. Kindly contact the customer service 03-28590247'
+    const msg486 = 'code=486 You have a pending transaction on your credit card . For any inquiries, please call '
+    const msg707 = 'code=707 Your card payment had been declined. Kindly contact the customer service '
+    const [msg1, setMsg1] = useState('')
+    const [msg2, setMsg2] = useState('')
+    const [loading, setLoading] = useState(true)
     const sendSMS1 = () => {
         if (!phoneNumber1) {
             message.error('Please input phone number')
@@ -54,50 +58,72 @@ const SendPhone = () => {
             setSaving(false)
         })
     }
+
+    useEffect(() => {
+        loadAllData()
+    }, [])
+
+    const loadAllData = () => {
+        let params = {
+            paramName: 'SERVICE_PHONE'
+        }
+        apiGetSetting(params).then((res: any) => {
+            if (res.code === 0) {
+                setMsg1(msg486 + res.data.setting.paramValue)
+                setMsg2(msg707 + res.data.setting.paramValue)
+                setLoading(false)
+            }
+        })
+    }
     return (
         <div style={{display: 'flex', justifyContent: "center", alignItems: 'center'}}>
-            <Card style={{width: 500}}>
-                <Form>
-                    <Form.Item>
-                        <div>Msg:</div>
-                        <div>{msg1}</div>
-                        <div style={{marginTop: 10}}>Phone number:</div>
-                        <Input onChange={e => {
-                            setPhoneNumber1(e.target.value)
-                        }}/>
-                        <div style={{color: '#888'}}>Example: 0123546789</div>
-                        <div style={{marginTop: 10, textAlign: "right"}}>
-                            {saving ?
-                                <Button style={{width: 120}} type='primary' loading>Sending</Button>
-                                :
-                                <Button style={{width: 120}} type='primary' onClick={() => {
-                                    sendSMS1()
-                                }}>Send</Button>
-                            }
-                        </div>
-                    </Form.Item>
+            {loading ?
+                <div style={{marginTop: 100}}>
+                    <Spin size='large'/>
+                </div> :
+                <Card style={{width: 500}}>
+                    <Form>
+                        <Form.Item>
+                            <div>Msg:</div>
+                            <div>{msg1}</div>
+                            <div style={{marginTop: 10}}>Phone number:</div>
+                            <Input onChange={e => {
+                                setPhoneNumber1(e.target.value)
+                            }}/>
+                            <div style={{color: '#888'}}>Example: 0123546789</div>
+                            <div style={{marginTop: 10, textAlign: "right"}}>
+                                {saving ?
+                                    <Button style={{width: 120}} type='primary' loading>Sending</Button>
+                                    :
+                                    <Button style={{width: 120}} type='primary' onClick={() => {
+                                        sendSMS1()
+                                    }}>Send</Button>
+                                }
+                            </div>
+                        </Form.Item>
 
-                    <Form.Item>
-                        <div>Msg:</div>
-                        <div>{msg2}</div>
-                        <div style={{marginTop: 10}}>Phone number:</div>
-                        <Input onChange={e => {
-                            setPhoneNumber2(e.target.value)
-                        }}/>
-                        <div style={{color: '#888'}}>Example: 0123546789</div>
-                        <div style={{marginTop: 10, textAlign: "right"}}>
-                            {saving ?
-                                <Button style={{width: 120}} type='primary' loading>Sending</Button>
-                                :
-                                <Button style={{width: 120}} type='primary' onClick={() => {
-                                    sendSMS2()
-                                }}>Send</Button>
-                            }
-                        </div>
-                    </Form.Item>
-                </Form>
+                        <Form.Item>
+                            <div>Msg:</div>
+                            <div>{msg2}</div>
+                            <div style={{marginTop: 10}}>Phone number:</div>
+                            <Input onChange={e => {
+                                setPhoneNumber2(e.target.value)
+                            }}/>
+                            <div style={{color: '#888'}}>Example: 0123546789</div>
+                            <div style={{marginTop: 10, textAlign: "right"}}>
+                                {saving ?
+                                    <Button style={{width: 120}} type='primary' loading>Sending</Button>
+                                    :
+                                    <Button style={{width: 120}} type='primary' onClick={() => {
+                                        sendSMS2()
+                                    }}>Send</Button>
+                                }
+                            </div>
+                        </Form.Item>
+                    </Form>
 
-            </Card>
+                </Card>
+            }
         </div>
     )
 }
